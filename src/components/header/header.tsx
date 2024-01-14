@@ -16,6 +16,8 @@ const styles = StyleSheet.create({
         backgroundColor: themeColors.BACKGROUND_PRIMARY,
         paddingTop: Platform.OS === 'ios' ? '20%' : '5%',
         paddingBottom: '5%',
+        borderBottomWidth: 0.5,
+        borderBottomColor: themeColors.BORDER,
     },
     title: {
         fontSize: fontSizes.TITLE,
