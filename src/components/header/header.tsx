@@ -4,9 +4,11 @@ import themeColors from '../../enums/themeColors'
 import fontSizes from '../../enums/fontSizes'
 
 const Header = (props: headerProps) => {
+    const { title } = props
+
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>{props.title}</Text>
+            <Text style={styles.title}>{title}</Text>
         </View>
     )
 }
