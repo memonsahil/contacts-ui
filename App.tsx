@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react'
 import { ScrollView, FlatList, StyleSheet, View } from 'react-native'
 import themeColors from './src/utils/themeColors'
-import contacts from './src/data/contacts'
+import avatars from './src/data/avatars'
+import contacts from './src/data/contacts.json'
+import contactType from './src/types/contactType'
 import AvatarSlider from './src/components/avatarSlider/avatarSlider'
 import ContactInfo from './src/components/contactInfo/contactInfo'
 import Header from './src/components/header/header'
@@ -13,8 +15,7 @@ const App = () => {
     const [isScrolling, setIsScrolling] = useState<boolean>(false)
     const [selectedAvatarIndex, setSelectedAvatarIndex] = useState<number>(0)
 
-    const avatars = contacts.map((contact) => contact.avatar)
-    const contactInfo = contacts.map((contact) => ({
+    const contactInfo = contacts.map((contact: contactType) => ({
         userId: contact.userId,
         firstName: contact.firstName,
         lastName: contact.lastName,
