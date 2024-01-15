@@ -52,6 +52,9 @@ const App = () => {
                         firstName={selectedContact.firstName}
                         lastName={selectedContact.lastName}
                         occupation={selectedContact.occupation}
+                        phone={selectedContact.phone}
+                        email={selectedContact.email}
+                        links={selectedContact.links}
                     />
                 ) : null}
             </View>
