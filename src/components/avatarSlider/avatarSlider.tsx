@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
     ScrollView,
     NativeSyntheticEvent,
@@ -5,10 +6,12 @@ import {
     Platform,
     Image,
     StyleSheet,
+    TouchableOpacity,
 } from 'react-native'
 import { horizontalDp, height, verticalDp } from '../../utils/responsive'
 import avatarSliderProps from './avatarSliderProps'
 import themeColors from '../../utils/themeColors'
+import InfoModal from '../infoModal/infoModal'
 
 const AvatarSlider = (props: avatarSliderProps) => {
     const {
@@ -21,61 +24,78 @@ const AvatarSlider = (props: avatarSliderProps) => {
         isScroll,
     } = props
 
+    const [showModal, setShowModal] = useState<boolean>(false)
+
     return (
-        <ScrollView
-            ref={avatarRef}
-            onMomentumScrollBegin={() => scrollSetter(true)}
-            onMomentumScrollEnd={(
-                event: NativeSyntheticEvent<NativeScrollEvent>
-            ) => {
-                if (isScroll && avatarRef.current && contactRef.current) {
-                    let scrollPosition = event.nativeEvent.contentOffset.x
-                    let currentAvatarIndex = Math.round(
-                        scrollPosition / (75 + horizontalDp(6))
-                    )
+        <>
+            <ScrollView
+                ref={avatarRef}
+                onMomentumScrollBegin={() => scrollSetter(true)}
+                onMomentumScrollEnd={(
+                    event: NativeSyntheticEvent<NativeScrollEvent>
+                ) => {
+                    if (isScroll && avatarRef.current && contactRef.current) {
+                        let scrollPosition = event.nativeEvent.contentOffset.x
+                        let currentAvatarIndex = Math.round(
+                            scrollPosition / (75 + horizontalDp(6))
+                        )
 
-                    indexSetter(currentAvatarIndex)
+                        indexSetter(currentAvatarIndex)
 
-                    contactRef.current.scrollToOffset({
-                        offset:
-                            currentAvatarIndex *
-                            (Platform.OS === 'ios'
-                                ? height - verticalDp(30)
-                                : height - verticalDp(26)),
-                        animated: true,
-                    })
+                        contactRef.current.scrollToOffset({
+                            offset:
+                                currentAvatarIndex *
+                                (Platform.OS === 'ios'
+                                    ? height - verticalDp(30)
+                                    : height - verticalDp(26)),
+                            animated: true,
+                        })
 
-                    scrollSetter(false)
-                }
-            }}
-            scrollEventThrottle={16}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            pagingEnabled={true}
-            style={styles.avatars}
-            contentContainerStyle={styles.avatarsContainer}
-            decelerationRate="fast"
-            snapToInterval={75 + horizontalDp(6)}
-        >
-            {avatars.map((avatar, index) => (
-                <Image
-                    style={
-                        index === currentIndex
-                            ? [
-                                  styles.avatar,
-                                  {
-                                      borderWidth: 3,
-                                      borderColor: themeColors.AVATAR_BORDER,
-                                      borderRadius: 100,
-                                  },
-                              ]
-                            : styles.avatar
+                        scrollSetter(false)
                     }
-                    key={index}
-                    source={avatar}
+                }}
+                scrollEventThrottle={16}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                pagingEnabled={true}
+                style={styles.avatars}
+                contentContainerStyle={styles.avatarsContainer}
+                decelerationRate="fast"
+                snapToInterval={75 + horizontalDp(6)}
+            >
+                {avatars.map((avatar, index) => (
+                    <TouchableOpacity
+                        key={index}
+                        onPress={() => setShowModal(true)}
+                    >
+                        <Image
+                            style={
+                                index === currentIndex
+                                    ? [
+                                          styles.avatar,
+                                          {
+                                              borderWidth: 3,
+                                              borderColor:
+                                                  themeColors.BACKGROUND_TERTIARY,
+                                              borderRadius: 100,
+                                          },
+                                      ]
+                                    : styles.avatar
+                            }
+                            source={avatar}
+                        />
+                    </TouchableOpacity>
+                ))}
+            </ScrollView>
+            {showModal ? (
+                <InfoModal
+                    avatar={{ uri: '' }}
+                    firstName="John"
+                    lastName="Doe"
+                    occupation="Software Engineer"
                 />
-            ))}
-        </ScrollView>
+            ) : null}
+        </>
     )
 }
 
