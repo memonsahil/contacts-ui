@@ -4,7 +4,6 @@ import { describe, it, expect } from '@jest/globals'
 import AvatarSlider from '../src/components/avatarSlider/avatarSlider'
 import avatar_1 from '../src/assets/avatars/avatar1.png'
 import avatar_2 from '../src/assets/avatars/avatar2.png'
-import avatar_3 from '../src/assets/avatars/avatar3.png'
 
 describe('AvatarSlider', () => {
     it('Test to see if the component renders.', () => {
@@ -14,11 +13,34 @@ describe('AvatarSlider', () => {
         const isScrolling = false
         const selectedAvatarIndex = 0
 
-        const avatars = [avatar_1, avatar_2, avatar_3]
+        const contacts = [
+            {
+                userId: '1',
+                firstName: 'John',
+                lastName: 'Doe',
+                occupation: 'Software Developer',
+                bio: 'I love coding!',
+                avatar: avatar_1,
+                phone: '1234567890',
+                email: 'user@domain.com',
+                links: ['https://www.linkedin.com/', 'https:/github.com/'],
+            },
+            {
+                userId: '2',
+                firstName: 'Jane',
+                lastName: 'Doe',
+                occupation: 'Product Manager',
+                bio: 'I love managing products!',
+                avatar: avatar_2,
+                phone: '1234567890',
+                email: 'user@domain.com',
+                links: ['https://www.linkedin.com/', 'https:/github.com/'],
+            },
+        ]
 
         const component = renderer.create(
             <AvatarSlider
-                avatars={avatars}
+                contacts={contacts}
                 avatarRef={avatarRef}
                 contactRef={contactRef}
                 indexSetter={() => {}}
@@ -37,11 +59,34 @@ describe('AvatarSlider', () => {
             const isScrolling = false
             const selectedAvatarIndex = 0
 
-            const avatars = [avatar_1, avatar_2, avatar_3]
+            const contacts = [
+                {
+                    userId: '1',
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    occupation: 'Software Developer',
+                    bio: 'I love coding!',
+                    avatar: avatar_1,
+                    phone: '1234567890',
+                    email: 'user@domain.com',
+                    links: ['https://www.linkedin.com/', 'https:/github.com/'],
+                },
+                {
+                    userId: '2',
+                    firstName: 'Jane',
+                    lastName: 'Doe',
+                    occupation: 'Product Manager',
+                    bio: 'I love managing products!',
+                    avatar: avatar_2,
+                    phone: '1234567890',
+                    email: 'user@domain.com',
+                    links: ['https://www.linkedin.com/', 'https:/github.com/'],
+                },
+            ]
 
             const component = renderer.create(
                 <AvatarSlider
-                    avatars={avatars}
+                    contacts={contacts}
                     avatarRef={avatarRef}
                     contactRef={contactRef}
                     indexSetter={() => {}}
@@ -53,6 +98,6 @@ describe('AvatarSlider', () => {
 
             const instance = component.root
             const imageElements = instance.findAllByType(Image)
-            expect(imageElements.length).toBe(avatars.length)
+            expect(imageElements.length).toBe(contacts.length)
         })
 })

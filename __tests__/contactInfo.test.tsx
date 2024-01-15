@@ -2,6 +2,8 @@ import { FlatList, ScrollView, Text } from 'react-native'
 import renderer from 'react-test-renderer'
 import { describe, it, expect } from '@jest/globals'
 import ContactInfo from '../src/components/contactInfo/contactInfo'
+import avatar_1 from '../src/assets/avatars/avatar1.png'
+import avatar_2 from '../src/assets/avatars/avatar2.png'
 
 describe('ContactInfo', () => {
     it('Test to see if the component renders.', () => {
@@ -10,13 +12,17 @@ describe('ContactInfo', () => {
 
         const isScrolling = false
 
-        const contactDetails = [
+        const contacts = [
             {
                 userId: '1',
                 firstName: 'John',
                 lastName: 'Doe',
                 occupation: 'Software Developer',
                 bio: 'I love coding!',
+                avatar: avatar_1,
+                phone: '1234567890',
+                email: 'user@domain.com',
+                links: ['https://www.linkedin.com/', 'https:/github.com/'],
             },
             {
                 userId: '2',
@@ -24,6 +30,10 @@ describe('ContactInfo', () => {
                 lastName: 'Doe',
                 occupation: 'Product Manager',
                 bio: 'I love managing products!',
+                avatar: avatar_2,
+                phone: '1234567890',
+                email: 'user@domain.com',
+                links: ['https://www.linkedin.com/', 'https:/github.com/'],
             },
         ]
 
@@ -31,7 +41,7 @@ describe('ContactInfo', () => {
             <ContactInfo
                 avatarRef={avatarRef}
                 contactRef={contactRef}
-                contactDetails={contactDetails}
+                contacts={contacts}
                 indexSetter={() => {}}
                 scrollSetter={() => {}}
                 isScroll={isScrolling}
@@ -46,13 +56,17 @@ describe('ContactInfo', () => {
 
             const isScrolling = false
 
-            const contactDetails = [
+            const contacts = [
                 {
                     userId: '1',
                     firstName: 'John',
                     lastName: 'Doe',
                     occupation: 'Software Developer',
                     bio: 'I love coding!',
+                    avatar: avatar_1,
+                    phone: '1234567890',
+                    email: 'user@domain.com',
+                    links: ['https://www.linkedin.com/', 'https:/github.com/'],
                 },
                 {
                     userId: '2',
@@ -60,6 +74,10 @@ describe('ContactInfo', () => {
                     lastName: 'Doe',
                     occupation: 'Product Manager',
                     bio: 'I love managing products!',
+                    avatar: avatar_2,
+                    phone: '1234567890',
+                    email: 'user@domain.com',
+                    links: ['https://www.linkedin.com/', 'https:/github.com/'],
                 },
             ]
 
@@ -67,7 +85,7 @@ describe('ContactInfo', () => {
                 <ContactInfo
                     avatarRef={avatarRef}
                     contactRef={contactRef}
-                    contactDetails={contactDetails}
+                    contacts={contacts}
                     indexSetter={() => {}}
                     scrollSetter={() => {}}
                     isScroll={isScrolling}
@@ -76,6 +94,6 @@ describe('ContactInfo', () => {
 
             const instance = component.root
             const textElements = instance.findAllByType(Text)
-            expect(textElements.length).toBe(contactDetails.length * 4)
+            expect(textElements.length).toBe(contacts.length * 4)
         })
 })
