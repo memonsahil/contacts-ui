@@ -64,7 +64,7 @@ const AvatarSlider = (props: avatarSliderProps) => {
                             ? [
                                   styles.avatar,
                                   {
-                                      borderWidth: 4,
+                                      borderWidth: 3,
                                       borderColor: themeColors.AVATAR_BORDER,
                                       borderRadius: 100,
                                   },
