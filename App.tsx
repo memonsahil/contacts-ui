@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react'
 import {
-    Image,
     ScrollView,
     FlatList,
     StyleSheet,
@@ -14,6 +13,7 @@ import themeColors from './src/utils/themeColors'
 import fontSizes from './src/utils/fontSizes'
 import { height, horizontalDp, verticalDp } from './src/utils/responsive'
 import contacts from './src/data/contacts'
+import AvatarSlider from './src/components/avatarSlider/avatarSlider'
 
 const App = () => {
     const avatarScrollViewRef = useRef<ScrollView>(null)
@@ -36,60 +36,15 @@ const App = () => {
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Contacts</Text>
             </View>
-            <ScrollView
-                ref={avatarScrollViewRef}
-                onMomentumScrollBegin={() => setIsScrolling(true)}
-                onMomentumScrollEnd={(
-                    event: NativeSyntheticEvent<NativeScrollEvent>
-                ) => {
-                    if (isScrolling && contactInfoScrollViewRef.current) {
-                        let scrollPosition = event.nativeEvent.contentOffset.x
-                        let currentAvatarIndex = Math.round(
-                            scrollPosition / (75 + horizontalDp(6))
-                        )
-
-                        setSelectedAvatarIndex(currentAvatarIndex)
-
-                        contactInfoScrollViewRef.current.scrollToOffset({
-                            offset:
-                                currentAvatarIndex *
-                                (Platform.OS === 'ios'
-                                    ? height - verticalDp(30)
-                                    : height - verticalDp(26)),
-                            animated: true,
-                        })
-
-                        setIsScrolling(false)
-                    }
-                }}
-                scrollEventThrottle={16}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                pagingEnabled={true}
-                style={styles.avatars}
-                contentContainerStyle={styles.avatarsContainer}
-                decelerationRate="fast"
-                snapToInterval={75 + horizontalDp(6)}
-            >
-                {avatars.map((avatar, index) => (
-                    <Image
-                        style={
-                            index === selectedAvatarIndex
-                                ? [
-                                      styles.avatar,
-                                      {
-                                          borderWidth: 4,
-                                          borderColor: 'lightblue',
-                                          borderRadius: 100,
-                                      },
-                                  ]
-                                : styles.avatar
-                        }
-                        key={index}
-                        source={avatar}
-                    />
-                ))}
-            </ScrollView>
+            <AvatarSlider
+                avatarRef={avatarScrollViewRef}
+                contactRef={contactInfoScrollViewRef}
+                avatars={avatars}
+                indexSetter={setSelectedAvatarIndex}
+                currentIndex={selectedAvatarIndex}
+                scrollSetter={setIsScrolling}
+                isScroll={isScrolling}
+            />
             <FlatList
                 ref={contactInfoScrollViewRef}
                 onMomentumScrollBegin={() => setIsScrolling(true)}
@@ -166,18 +121,6 @@ const styles = StyleSheet.create({
         color: themeColors.TEXT_PRIMARY,
         fontWeight: 'bold',
         textAlign: 'center',
-    },
-    avatars: {
-        height: verticalDp(20),
-    },
-    avatarsContainer: {
-        alignSelf: 'center',
-        paddingHorizontal: horizontalDp(40),
-    },
-    avatar: {
-        height: 75,
-        width: 75,
-        marginRight: horizontalDp(6),
     },
     contactInfo: {
         height:
