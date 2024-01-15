@@ -69,7 +69,7 @@ describe('AvatarSlider', () => {
                     avatar: avatar_1,
                     phone: '1234567890',
                     email: 'user@domain.com',
-                    links: ['https://www.linkedin.com/', 'https:/github.com/'],
+                    links: ['https://www.linkedin.com/', 'https://github.com/'],
                 },
                 {
                     userId: '2',
@@ -80,7 +80,7 @@ describe('AvatarSlider', () => {
                     avatar: avatar_2,
                     phone: '1234567890',
                     email: 'user@domain.com',
-                    links: ['https://www.linkedin.com/', 'https:/github.com/'],
+                    links: ['https://www.linkedin.com/', 'https://github.com/'],
                 },
             ]
 
