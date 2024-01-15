@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import { horizontalDp, height, verticalDp } from '../../utils/responsive'
 import avatarSliderProps from './avatarSliderProps'
+import themeColors from '../../utils/themeColors'
 
 const AvatarSlider = (props: avatarSliderProps) => {
     const {
@@ -64,7 +65,7 @@ const AvatarSlider = (props: avatarSliderProps) => {
                                   styles.avatar,
                                   {
                                       borderWidth: 4,
-                                      borderColor: 'lightblue',
+                                      borderColor: themeColors.AVATAR_BORDER,
                                       borderRadius: 100,
                                   },
                               ]

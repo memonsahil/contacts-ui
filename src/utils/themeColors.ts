@@ -4,6 +4,7 @@ enum themeColors {
     TEXT_PRIMARY = '#25252D',
     TEXT_SECONDARY = '#8F8FA3',
     BORDER = '#65657B',
+    AVATAR_BORDER = '#77D6F8',
 }
 
 export default themeColors
