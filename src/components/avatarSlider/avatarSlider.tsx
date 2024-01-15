@@ -26,8 +26,6 @@ const AvatarSlider = (props: avatarSliderProps) => {
 
     const [showModal, setShowModal] = useState<boolean>(false)
 
-    console.log(contacts)
-
     return (
         <>
             <ScrollView

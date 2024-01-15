@@ -11,12 +11,13 @@ import { height, verticalDp, horizontalDp } from '../../utils/responsive'
 import contactInfoProps from './contactInfoProps'
 import fontSizes from '../../utils/fontSizes'
 import themeColors from '../../utils/themeColors'
+import contactType from '../../types/contactType'
 
 const ContactInfo = (props: contactInfoProps) => {
     const {
         avatarRef,
         contactRef,
-        contactDetails,
+        contacts,
         indexSetter,
         scrollSetter,
         isScroll,
@@ -49,8 +50,8 @@ const ContactInfo = (props: contactInfoProps) => {
                 }
             }}
             scrollEventThrottle={16}
-            data={contactDetails}
-            keyExtractor={(contact) => contact.userId}
+            data={contacts}
+            keyExtractor={(contact: contactType) => contact.userId}
             renderItem={({ item: contact }) => (
                 <View style={styles.contactInfo}>
                     <View style={styles.contactContent}>
