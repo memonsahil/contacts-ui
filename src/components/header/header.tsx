@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
         paddingBottom: verticalDp(2),
         backgroundColor: themeColors.BACKGROUND_SECONDARY,
         borderBottomWidth: verticalDp(0.1),
-        borderBottomColor: themeColors.BORDER,
     },
     headerTitle: {
         fontSize: fontSizes.TITLE,
