@@ -1,18 +1,10 @@
 import { useRef, useState } from 'react'
-import {
-    ScrollView,
-    FlatList,
-    StyleSheet,
-    Text,
-    View,
-    Platform,
-} from 'react-native'
+import { ScrollView, FlatList, StyleSheet, View } from 'react-native'
 import themeColors from './src/utils/themeColors'
-import fontSizes from './src/utils/fontSizes'
-import { verticalDp } from './src/utils/responsive'
 import contacts from './src/data/contacts'
 import AvatarSlider from './src/components/avatarSlider/avatarSlider'
 import ContactInfo from './src/components/contactInfo/contactInfo'
+import Header from './src/components/header/header'
 
 const App = () => {
     const avatarScrollViewRef = useRef<ScrollView>(null)
@@ -32,9 +24,7 @@ const App = () => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>Contacts</Text>
-            </View>
+            <Header title="Contacts" />
             <AvatarSlider
                 avatarRef={avatarScrollViewRef}
                 contactRef={contactInfoScrollViewRef}
@@ -60,19 +50,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: themeColors.BACKGROUND_PRIMARY,
-    },
-    header: {
-        paddingTop: Platform.OS === 'ios' ? verticalDp(8) : verticalDp(4),
-        paddingBottom: verticalDp(2),
-        backgroundColor: themeColors.BACKGROUND_SECONDARY,
-        borderBottomWidth: verticalDp(0.1),
-        borderBottomColor: themeColors.BORDER,
-    },
-    headerTitle: {
-        fontSize: fontSizes.TITLE,
-        color: themeColors.TEXT_PRIMARY,
-        fontWeight: 'bold',
-        textAlign: 'center',
     },
 })
 
