@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
         fontSize: fontSizes.BODY,
         color: themeColors.TEXT_SECONDARY,
         fontWeight: 'bold',
+        marginTop: verticalDp(0.5),
     },
 })
 
