@@ -6,6 +6,7 @@ import {
     StyleSheet,
     TouchableOpacity,
     Image,
+    Linking,
 } from 'react-native'
 import themeColors from '../../utils/themeColors'
 import { horizontalDp, verticalDp } from '../../utils/responsive'
@@ -14,7 +15,8 @@ import fontSizes from '../../utils/fontSizes'
 import Context from '../../state/context'
 
 const InfoModal = (props: infoModalProps) => {
-    const { avatar, firstName, lastName, occupation } = props
+    const { avatar, firstName, lastName, occupation, phone, email, links } =
+        props
 
     const { setSelectedContact } = useContext(Context)
 
@@ -45,25 +47,24 @@ const InfoModal = (props: infoModalProps) => {
                     </Text>
                     <View style={styles.infoWrapper}>
                         <Text style={styles.field}>Phone</Text>
-                        <Text style={styles.value}>+44 (0) 1234567890</Text>
+                        <Text style={styles.value}>{phone}</Text>
                     </View>
                     <View style={styles.infoWrapper}>
                         <Text style={styles.field}>Email</Text>
                         <TouchableOpacity>
-                            <Text style={styles.link}>email@domain.com</Text>
+                            <Text style={styles.value}>{email}</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.infoWrapper}>
-                        <Text style={styles.field}>Social</Text>
-                        <TouchableOpacity>
-                            <Text style={styles.link}>LinkedIn</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Text style={styles.link}>Facebook</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Text style={styles.link}>Instagram</Text>
-                        </TouchableOpacity>
+                        <Text style={styles.field}>Links</Text>
+                        {links.map((link, index) => (
+                            <TouchableOpacity
+                                key={index}
+                                onPress={() => Linking.openURL(link)}
+                            >
+                                <Text style={styles.link}>{link}</Text>
+                            </TouchableOpacity>
+                        ))}
                     </View>
                 </View>
             </View>
