@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import {
     Modal,
     Text,
@@ -10,15 +11,21 @@ import themeColors from '../../utils/themeColors'
 import { horizontalDp, verticalDp } from '../../utils/responsive'
 import infoModalProps from './infoModalProps'
 import fontSizes from '../../utils/fontSizes'
+import Context from '../../state/context'
 
 const InfoModal = (props: infoModalProps) => {
     const { avatar, firstName, lastName, occupation } = props
+
+    const { setSelectedContact } = useContext(Context)
 
     return (
         <Modal transparent animationType="slide">
             <View style={styles.contanier}>
                 <View style={styles.modalContainer}>
-                    <TouchableOpacity style={styles.iconWrapper}>
+                    <TouchableOpacity
+                        style={styles.iconWrapper}
+                        onPress={() => setSelectedContact(null)}
+                    >
                         <Text style={styles.closeIcon}>x</Text>
                     </TouchableOpacity>
                     <Image style={styles.avatar} source={avatar} />
