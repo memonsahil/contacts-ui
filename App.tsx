@@ -1,220 +1,318 @@
-import { StyleSheet, View } from 'react-native'
-import Header from './src/components/header/header'
-import AvatarSlider from './src/components/avatarSlider/avatarSlider'
+import {
+    Image,
+    ScrollView,
+    FlatList,
+    StyleSheet,
+    Text,
+    View,
+    Dimensions,
+    Platform,
+} from 'react-native'
 import themeColors from './src/enums/themeColors'
+import fontSizes from './src/enums/fontSizes'
+
+const contacts: {
+    userId: string
+    firstName: string
+    lastName: string
+    avatar: { uri: string }
+    occupation: string
+    bio: string
+}[] = [
+    {
+        userId: '1',
+        firstName: 'John',
+        lastName: 'Doe',
+        avatar: require('./src/assets/avatars/avatar_1.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '2',
+        firstName: 'Jane',
+        lastName: 'Doe',
+        avatar: require('./src/assets/avatars/avatar_2.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '3',
+        firstName: 'John',
+        lastName: 'Smith',
+        avatar: require('./src/assets/avatars/avatar_3.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '4',
+        firstName: 'Jane',
+        lastName: 'Smith',
+        avatar: require('./src/assets/avatars/avatar_4.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '5',
+        firstName: 'John',
+        lastName: 'Doe',
+        avatar: require('./src/assets/avatars/avatar_5.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '6',
+        firstName: 'Jane',
+        lastName: 'Doe',
+        avatar: require('./src/assets/avatars/avatar_6.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '7',
+        firstName: 'John',
+        lastName: 'Smith',
+        avatar: require('./src/assets/avatars/avatar_7.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '8',
+        firstName: 'Jane',
+        lastName: 'Smith',
+        avatar: require('./src/assets/avatars/avatar_8.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '9',
+        firstName: 'John',
+        lastName: 'Doe',
+        avatar: require('./src/assets/avatars/avatar_9.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '10',
+        firstName: 'Jane',
+        lastName: 'Doe',
+        avatar: require('./src/assets/avatars/avatar_10.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '11',
+        firstName: 'John',
+        lastName: 'Smith',
+        avatar: require('./src/assets/avatars/avatar_11.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '12',
+        firstName: 'Jane',
+        lastName: 'Smith',
+        avatar: require('./src/assets/avatars/avatar_12.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '13',
+        firstName: 'John',
+        lastName: 'Doe',
+        avatar: require('./src/assets/avatars/avatar_13.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '14',
+        firstName: 'Jane',
+        lastName: 'Doe',
+        avatar: require('./src/assets/avatars/avatar_14.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '15',
+        firstName: 'John',
+        lastName: 'Smith',
+        avatar: require('./src/assets/avatars/avatar_15.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '16',
+        firstName: 'Jane',
+        lastName: 'Smith',
+        avatar: require('./src/assets/avatars/avatar_16.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '17',
+        firstName: 'John',
+        lastName: 'Doe',
+        avatar: require('./src/assets/avatars/avatar_17.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '18',
+        firstName: 'Jane',
+        lastName: 'Doe',
+        avatar: require('./src/assets/avatars/avatar_18.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '19',
+        firstName: 'John',
+        lastName: 'Smith',
+        avatar: require('./src/assets/avatars/avatar_19.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '20',
+        firstName: 'Jane',
+        lastName: 'Smith',
+        avatar: require('./src/assets/avatars/avatar_20.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '21',
+        firstName: 'John',
+        lastName: 'Doe',
+        avatar: require('./src/assets/avatars/avatar_21.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '22',
+        firstName: 'Jane',
+        lastName: 'Doe',
+        avatar: require('./src/assets/avatars/avatar_22.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '23',
+        firstName: 'John',
+        lastName: 'Smith',
+        avatar: require('./src/assets/avatars/avatar_23.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '24',
+        firstName: 'Jane',
+        lastName: 'Smith',
+        avatar: require('./src/assets/avatars/avatar_24.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '25',
+        firstName: 'John',
+        lastName: 'Doe',
+        avatar: require('./src/assets/avatars/avatar_25.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '26',
+        firstName: 'Jane',
+        lastName: 'Doe',
+        avatar: require('./src/assets/avatars/avatar_26.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '27',
+        firstName: 'John',
+        lastName: 'Smith',
+        avatar: require('./src/assets/avatars/avatar_27.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+    {
+        userId: '28',
+        firstName: 'Jane',
+        lastName: 'Smith',
+        avatar: require('./src/assets/avatars/avatar_28.png'),
+        occupation: 'Software Engineer',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
+    },
+]
+
+const { width, height } = Dimensions.get('window')
+
+const verticalDp = (percentage: number) => {
+    const value = (percentage * height) / 100
+    return value
+}
+
+const horizontalDp = (percentage: number) => {
+    const value = (percentage * width) / 100
+    return value
+}
 
 const App = () => {
-    const contacts: {
-        userId: string
-        userName: string
-        avatar: { uri: string }
-        occupation: string
-        bio: string
-    }[] = [
-        {
-            userId: '1',
-            userName: 'John Doe',
-            avatar: require('./src/assets/avatars/avatar_1.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
-        },
-        {
-            userId: '2',
-            userName: 'Jane Doe',
-            avatar: require('./src/assets/avatars/avatar_2.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
-        },
-        {
-            userId: '3',
-            userName: 'John Smith',
-            avatar: require('./src/assets/avatars/avatar_3.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
-        },
-        {
-            userId: '4',
-            userName: 'Jane Smith',
-            avatar: require('./src/assets/avatars/avatar_4.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
-        },
-        {
-            userId: '5',
-            userName: 'John Doe',
-            avatar: require('./src/assets/avatars/avatar_5.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
-        },
-        {
-            userId: '6',
-            userName: 'Jane Doe',
-            avatar: require('./src/assets/avatars/avatar_6.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
-        },
-        {
-            userId: '7',
-            userName: 'John Smith',
-            avatar: require('./src/assets/avatars/avatar_7.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
-        },
-        {
-            userId: '8',
-            userName: 'Jane Smith',
-            avatar: require('./src/assets/avatars/avatar_8.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl. Donec euismod, nisl eget tempor aliquam, nisl velit aliquet nunc, vitae aliquam nisi nunc vitae nisl.',
-        },
-        {
-            userId: '9',
-            userName: 'John Doe',
-            avatar: require('./src/assets/avatars/avatar_9.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-        {
-            userId: '10',
-            userName: 'Jane Doe',
-            avatar: require('./src/assets/avatars/avatar_10.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-        {
-            userId: '11',
-            userName: 'John Smith',
-            avatar: require('./src/assets/avatars/avatar_11.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-        {
-            userId: '12',
-            userName: 'Jane Smith',
-            avatar: require('./src/assets/avatars/avatar_12.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-        {
-            userId: '13',
-            userName: 'John Doe',
-            avatar: require('./src/assets/avatars/avatar_13.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-        {
-            userId: '14',
-            userName: 'Jane Doe',
-            avatar: require('./src/assets/avatars/avatar_14.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-        {
-            userId: '15',
-            userName: 'John Smith',
-            avatar: require('./src/assets/avatars/avatar_15.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-        {
-            userId: '16',
-            userName: 'Jane Smith',
-            avatar: require('./src/assets/avatars/avatar_16.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-        {
-            userId: '17',
-            userName: 'John Doe',
-            avatar: require('./src/assets/avatars/avatar_17.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-        {
-            userId: '18',
-            userName: 'Jane Doe',
-            avatar: require('./src/assets/avatars/avatar_18.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-        {
-            userId: '19',
-            userName: 'John Smith',
-            avatar: require('./src/assets/avatars/avatar_19.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-        {
-            userId: '20',
-            userName: 'Jane Smith',
-            avatar: require('./src/assets/avatars/avatar_20.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-        {
-            userId: '21',
-            userName: 'John Doe',
-            avatar: require('./src/assets/avatars/avatar_21.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-        {
-            userId: '22',
-            userName: 'Jane Doe',
-            avatar: require('./src/assets/avatars/avatar_22.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-        {
-            userId: '23',
-            userName: 'John Smith',
-            avatar: require('./src/assets/avatars/avatar_23.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-        {
-            userId: '24',
-            userName: 'Jane Smith',
-            avatar: require('./src/assets/avatars/avatar_24.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-        {
-            userId: '25',
-            userName: 'John Doe',
-            avatar: require('./src/assets/avatars/avatar_25.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-        {
-            userId: '26',
-            userName: 'Jane Doe',
-            avatar: require('./src/assets/avatars/avatar_26.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-        {
-            userId: '27',
-            userName: 'John Smith',
-            avatar: require('./src/assets/avatars/avatar_27.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-        {
-            userId: '28',
-            userName: 'Jane Smith',
-            avatar: require('./src/assets/avatars/avatar_28.png'),
-            occupation: 'Software Engineer',
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        },
-    ]
-
     const avatars = contacts.map((contact) => contact.avatar)
+    const contactInfo = contacts.map((contact) => ({
+        userId: contact.userId,
+        firstName: contact.firstName,
+        lastName: contact.lastName,
+        occupation: contact.occupation,
+        bio: contact.bio,
+    }))
 
     return (
         <View style={styles.container}>
-            <Header title="Contacts" />
-            <AvatarSlider avatars={avatars} currentAvatar={avatars[0]} />
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>Contacts</Text>
+            </View>
+            <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                pagingEnabled={true}
+                style={styles.avatars}
+                contentContainerStyle={styles.avatarsContainer}
+            >
+                {avatars.map((avatar, index) => (
+                    <Image style={styles.avatar} key={index} source={avatar} />
+                ))}
+            </ScrollView>
+            <FlatList
+                data={contactInfo}
+                keyExtractor={(contact) => contact.userId}
+                renderItem={({ item: contact }) => (
+                    <View style={styles.contactInfo}>
+                        <View style={styles.contactContent}>
+                            <View style={styles.nameInfo}>
+                                <Text style={styles.heading}>
+                                    {contact.firstName} {contact.lastName}
+                                </Text>
+                                <Text style={styles.body}>
+                                    {contact.occupation}
+                                </Text>
+                            </View>
+                            <View style={styles.aboutInfo}>
+                                <Text style={styles.subHeading}>About Me</Text>
+                                <Text style={styles.body}>{contact.bio}</Text>
+                            </View>
+                        </View>
+                    </View>
+                )}
+                pagingEnabled
+                decelerationRate="fast"
+                snapToInterval={
+                    Platform.OS === 'ios'
+                        ? height - verticalDp(30)
+                        : height - verticalDp(26)
+                }
+                showsVerticalScrollIndicator={false}
+            />
         </View>
     )
 }
@@ -222,7 +320,65 @@ const App = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: themeColors.BACKGROUND_PRIMARY,
+    },
+    header: {
+        paddingTop: Platform.OS === 'ios' ? verticalDp(8) : verticalDp(4),
+        paddingBottom: verticalDp(2),
         backgroundColor: themeColors.BACKGROUND_SECONDARY,
+        borderBottomWidth: verticalDp(0.1),
+        borderBottomColor: themeColors.BORDER,
+    },
+    headerTitle: {
+        fontSize: fontSizes.TITLE,
+        color: themeColors.TEXT_PRIMARY,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    avatars: {
+        height: verticalDp(20),
+    },
+    avatarsContainer: {
+        alignSelf: 'center',
+        paddingHorizontal: horizontalDp(40),
+    },
+    avatar: {
+        height: 75,
+        width: 75,
+        marginRight: horizontalDp(6),
+    },
+    contactInfo: {
+        height:
+            Platform.OS === 'ios'
+                ? height - verticalDp(30)
+                : height - verticalDp(26),
+    },
+    contactContent: {
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+    },
+    nameInfo: {
+        marginTop: verticalDp(5),
+        alignItems: 'center',
+    },
+    heading: {
+        fontSize: fontSizes.HEADING,
+        color: themeColors.TEXT_PRIMARY,
+        fontWeight: 'bold',
+    },
+    subHeading: {
+        fontSize: fontSizes.SUB_HEADING,
+        color: themeColors.TEXT_PRIMARY,
+        fontWeight: 'bold',
+    },
+    aboutInfo: {
+        marginTop: verticalDp(5),
+        marginHorizontal: horizontalDp(5),
+    },
+    body: {
+        fontSize: fontSizes.BODY,
+        color: themeColors.TEXT_SECONDARY,
+        fontWeight: 'bold',
     },
 })
 
