@@ -1,6 +1,6 @@
 enum fontSizes {
-    TITLE = 20,
-    HEADING = 18,
+    TITLE = 18,
+    HEADING = 22,
     SUB_HEADING = 16,
     BODY = 14,
 }
