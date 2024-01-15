@@ -1,10 +1,9 @@
 enum themeColors {
     BACKGROUND_PRIMARY = '#F4F4F6',
     BACKGROUND_SECONDARY = '#E9E9ED',
-    TEXT_PRIMARY = '#25252D',
-    TEXT_SECONDARY = '#8F8FA3',
-    BORDER = '#65657B',
-    AVATAR_BORDER = '#77D6F8',
+    BACKGROUND_TERTIARY = '#77D6F8',
+    TEXT_PRIMARY = '#373743',
+    TEXT_SECONDARY = '#84849A',
 }
 
 export default themeColors
