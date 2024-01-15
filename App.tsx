@@ -278,6 +278,8 @@ const App = () => {
                 pagingEnabled={true}
                 style={styles.avatars}
                 contentContainerStyle={styles.avatarsContainer}
+                decelerationRate="fast"
+                snapToInterval={75 + horizontalDp(6)}
             >
                 {avatars.map((avatar, index) => (
                     <Image style={styles.avatar} key={index} source={avatar} />
