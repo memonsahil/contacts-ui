@@ -17,7 +17,7 @@ const AvatarSlider = (props: avatarSliderProps) => {
     const {
         avatarRef,
         contactRef,
-        avatars,
+        contacts,
         indexSetter,
         currentIndex,
         scrollSetter,
@@ -25,6 +25,8 @@ const AvatarSlider = (props: avatarSliderProps) => {
     } = props
 
     const [showModal, setShowModal] = useState<boolean>(false)
+
+    console.log(contacts)
 
     return (
         <>
@@ -63,7 +65,7 @@ const AvatarSlider = (props: avatarSliderProps) => {
                 decelerationRate="fast"
                 snapToInterval={75 + horizontalDp(6)}
             >
-                {avatars.map((avatar, index) => (
+                {contacts.map((contact, index) => (
                     <TouchableOpacity
                         key={index}
                         onPress={() => setShowModal(true)}
@@ -82,7 +84,7 @@ const AvatarSlider = (props: avatarSliderProps) => {
                                       ]
                                     : styles.avatar
                             }
-                            source={avatar}
+                            source={contact.avatar}
                         />
                     </TouchableOpacity>
                 ))}

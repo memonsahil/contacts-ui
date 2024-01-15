@@ -15,12 +15,9 @@ const App = () => {
     const [isScrolling, setIsScrolling] = useState<boolean>(false)
     const [selectedAvatarIndex, setSelectedAvatarIndex] = useState<number>(0)
 
-    const contactInfo = contacts.map((contact: contactType) => ({
-        userId: contact.userId,
-        firstName: contact.firstName,
-        lastName: contact.lastName,
-        occupation: contact.occupation,
-        bio: contact.bio,
+    const contactInfo = contacts.map((contact: contactType, index) => ({
+        ...contact,
+        avatar: avatars[index],
     }))
 
     return (
@@ -29,7 +26,7 @@ const App = () => {
             <AvatarSlider
                 avatarRef={avatarScrollViewRef}
                 contactRef={contactInfoScrollViewRef}
-                avatars={avatars}
+                contacts={contactInfo}
                 indexSetter={setSelectedAvatarIndex}
                 currentIndex={selectedAvatarIndex}
                 scrollSetter={setIsScrolling}
