@@ -2,7 +2,7 @@
 
 A React Native mobile UI that contains a contacts screen and context state management.
 
-![RN Challenge Demo](./src/assets/rn-challenge-demo.mov)
+![RN Challenge Demo](./src/assets/rn-challenge-demo.gif)
 
 ## Tech
 
