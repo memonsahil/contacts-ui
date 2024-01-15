@@ -1,6 +1,7 @@
 [
     {
         "userId": "1",
+        "avatar": { "uri": "" },
         "firstName": "John",
         "lastName": "Doe",
         "occupation": "Software Engineer",
@@ -8,6 +9,7 @@
     },
     {
         "userId": "2",
+        "avatar": { "uri": "" },
         "firstName": "Jane",
         "lastName": "Smith",
         "occupation": "Product Manager",
@@ -15,6 +17,7 @@
     },
     {
         "userId": "3",
+        "avatar": { "uri": "" },
         "firstName": "Bob",
         "lastName": "Johnson",
         "occupation": "Data Scientist",
@@ -22,6 +25,7 @@
     },
     {
         "userId": "4",
+        "avatar": { "uri": "" },
         "firstName": "John",
         "lastName": "Doe",
         "occupation": "Software Engineer",
@@ -29,6 +33,7 @@
     },
     {
         "userId": "5",
+        "avatar": { "uri": "" },
         "firstName": "Jane",
         "lastName": "Smith",
         "occupation": "Product Manager",
@@ -36,6 +41,7 @@
     },
     {
         "userId": "6",
+        "avatar": { "uri": "" },
         "firstName": "Bob",
         "lastName": "Johnson",
         "occupation": "Data Scientist",
@@ -43,6 +49,7 @@
     },
     {
         "userId": "7",
+        "avatar": { "uri": "" },
         "firstName": "John",
         "lastName": "Doe",
         "occupation": "Software Engineer",
@@ -50,6 +57,7 @@
     },
     {
         "userId": "8",
+        "avatar": { "uri": "" },
         "firstName": "Jane",
         "lastName": "Smith",
         "occupation": "Product Manager",
@@ -57,6 +65,7 @@
     },
     {
         "userId": "9",
+        "avatar": { "uri": "" },
         "firstName": "Bob",
         "lastName": "Johnson",
         "occupation": "Data Scientist",
@@ -64,6 +73,7 @@
     },
     {
         "userId": "10",
+        "avatar": { "uri": "" },
         "firstName": "John",
         "lastName": "Doe",
         "occupation": "Software Engineer",
@@ -71,6 +81,7 @@
     },
     {
         "userId": "11",
+        "avatar": { "uri": "" },
         "firstName": "Jane",
         "lastName": "Smith",
         "occupation": "Product Manager",
@@ -78,6 +89,7 @@
     },
     {
         "userId": "12",
+        "avatar": { "uri": "" },
         "firstName": "Bob",
         "lastName": "Johnson",
         "occupation": "Data Scientist",
@@ -85,6 +97,7 @@
     },
     {
         "userId": "13",
+        "avatar": { "uri": "" },
         "firstName": "John",
         "lastName": "Doe",
         "occupation": "Software Engineer",
@@ -92,6 +105,7 @@
     },
     {
         "userId": "14",
+        "avatar": { "uri": "" },
         "firstName": "Jane",
         "lastName": "Smith",
         "occupation": "Product Manager",
@@ -99,6 +113,7 @@
     },
     {
         "userId": "15",
+        "avatar": { "uri": "" },
         "firstName": "Bob",
         "lastName": "Johnson",
         "occupation": "Data Scientist",
@@ -106,6 +121,7 @@
     },
     {
         "userId": "16",
+        "avatar": { "uri": "" },
         "firstName": "John",
         "lastName": "Doe",
         "occupation": "Software Engineer",
@@ -113,6 +129,7 @@
     },
     {
         "userId": "17",
+        "avatar": { "uri": "" },
         "firstName": "Jane",
         "lastName": "Smith",
         "occupation": "Product Manager",
@@ -120,6 +137,7 @@
     },
     {
         "userId": "18",
+        "avatar": { "uri": "" },
         "firstName": "Bob",
         "lastName": "Johnson",
         "occupation": "Data Scientist",
@@ -127,6 +145,7 @@
     },
     {
         "userId": "19",
+        "avatar": { "uri": "" },
         "firstName": "John",
         "lastName": "Doe",
         "occupation": "Software Engineer",
@@ -134,6 +153,7 @@
     },
     {
         "userId": "20",
+        "avatar": { "uri": "" },
         "firstName": "Jane",
         "lastName": "Smith",
         "occupation": "Product Manager",
@@ -141,6 +161,7 @@
     },
     {
         "userId": "21",
+        "avatar": { "uri": "" },
         "firstName": "Bob",
         "lastName": "Johnson",
         "occupation": "Data Scientist",
@@ -148,6 +169,7 @@
     },
     {
         "userId": "22",
+        "avatar": { "uri": "" },
         "firstName": "John",
         "lastName": "Doe",
         "occupation": "Software Engineer",
@@ -155,6 +177,7 @@
     },
     {
         "userId": "23",
+        "avatar": { "uri": "" },
         "firstName": "Jane",
         "lastName": "Smith",
         "occupation": "Product Manager",
@@ -162,6 +185,7 @@
     },
     {
         "userId": "24",
+        "avatar": { "uri": "" },
         "firstName": "Bob",
         "lastName": "Johnson",
         "occupation": "Data Scientist",
@@ -169,6 +193,7 @@
     },
     {
         "userId": "25",
+        "avatar": { "uri": "" },
         "firstName": "John",
         "lastName": "Doe",
         "occupation": "Software Engineer",
@@ -176,6 +201,7 @@
     },
     {
         "userId": "26",
+        "avatar": { "uri": "" },
         "firstName": "Jane",
         "lastName": "Smith",
         "occupation": "Product Manager",
@@ -183,6 +209,7 @@
     },
     {
         "userId": "27",
+        "avatar": { "uri": "" },
         "firstName": "Bob",
         "lastName": "Johnson",
         "occupation": "Data Scientist",
@@ -190,6 +217,7 @@
     },
     {
         "userId": "28",
+        "avatar": { "uri": "" },
         "firstName": "Bob",
         "lastName": "Johnson",
         "occupation": "Data Scientist",
