@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react'
 import {
     Image,
     ScrollView,
@@ -7,6 +8,8 @@ import {
     View,
     Dimensions,
     Platform,
+    NativeSyntheticEvent,
+    NativeScrollEvent,
 } from 'react-native'
 import themeColors from './src/enums/themeColors'
 import fontSizes from './src/enums/fontSizes'
@@ -258,6 +261,12 @@ const horizontalDp = (percentage: number) => {
 }
 
 const App = () => {
+    const avatarScrollViewRef = useRef<ScrollView>(null)
+    const contactInfoScrollViewRef = useRef<FlatList>(null)
+
+    const [isScrolling, setIsScrolling] = useState<boolean>(false)
+    const [selectedAvatarIndex, setSelectedAvatarIndex] = useState<number>(0)
+
     const avatars = contacts.map((contact) => contact.avatar)
     const contactInfo = contacts.map((contact) => ({
         userId: contact.userId,
@@ -273,6 +282,32 @@ const App = () => {
                 <Text style={styles.headerTitle}>Contacts</Text>
             </View>
             <ScrollView
+                ref={avatarScrollViewRef}
+                onMomentumScrollBegin={() => setIsScrolling(true)}
+                onMomentumScrollEnd={(
+                    event: NativeSyntheticEvent<NativeScrollEvent>
+                ) => {
+                    if (isScrolling && contactInfoScrollViewRef.current) {
+                        let scrollPosition = event.nativeEvent.contentOffset.x
+                        let currentAvatarIndex = Math.round(
+                            scrollPosition / (75 + horizontalDp(6))
+                        )
+
+                        setSelectedAvatarIndex(currentAvatarIndex)
+
+                        contactInfoScrollViewRef.current.scrollToOffset({
+                            offset:
+                                currentAvatarIndex *
+                                (Platform.OS === 'ios'
+                                    ? height - verticalDp(30)
+                                    : height - verticalDp(26)),
+                            animated: true,
+                        })
+
+                        setIsScrolling(false)
+                    }
+                }}
+                scrollEventThrottle={16}
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 pagingEnabled={true}
@@ -282,10 +317,50 @@ const App = () => {
                 snapToInterval={75 + horizontalDp(6)}
             >
                 {avatars.map((avatar, index) => (
-                    <Image style={styles.avatar} key={index} source={avatar} />
+                    <Image
+                        style={
+                            index === selectedAvatarIndex
+                                ? [
+                                      styles.avatar,
+                                      {
+                                          borderWidth: 4,
+                                          borderColor: 'lightblue',
+                                          borderRadius: 100,
+                                      },
+                                  ]
+                                : styles.avatar
+                        }
+                        key={index}
+                        source={avatar}
+                    />
                 ))}
             </ScrollView>
             <FlatList
+                ref={contactInfoScrollViewRef}
+                onMomentumScrollBegin={() => setIsScrolling(true)}
+                onMomentumScrollEnd={(
+                    event: NativeSyntheticEvent<NativeScrollEvent>
+                ) => {
+                    if (isScrolling && avatarScrollViewRef.current) {
+                        let scrollPosition = event.nativeEvent.contentOffset.y
+                        let currentContactInfoIndex = Math.round(
+                            scrollPosition /
+                                (Platform.OS === 'ios'
+                                    ? height - verticalDp(30)
+                                    : height - verticalDp(26))
+                        )
+
+                        setSelectedAvatarIndex(currentContactInfoIndex)
+
+                        avatarScrollViewRef.current.scrollTo({
+                            x: currentContactInfoIndex * (75 + horizontalDp(6)),
+                            animated: true,
+                        })
+
+                        setIsScrolling(false)
+                    }
+                }}
+                scrollEventThrottle={16}
                 data={contactInfo}
                 keyExtractor={(contact) => contact.userId}
                 renderItem={({ item: contact }) => (
