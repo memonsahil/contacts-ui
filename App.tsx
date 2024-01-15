@@ -6,14 +6,13 @@ import {
     Text,
     View,
     Platform,
-    NativeSyntheticEvent,
-    NativeScrollEvent,
 } from 'react-native'
 import themeColors from './src/utils/themeColors'
 import fontSizes from './src/utils/fontSizes'
-import { height, horizontalDp, verticalDp } from './src/utils/responsive'
+import { verticalDp } from './src/utils/responsive'
 import contacts from './src/data/contacts'
 import AvatarSlider from './src/components/avatarSlider/avatarSlider'
+import ContactInfo from './src/components/contactInfo/contactInfo'
 
 const App = () => {
     const avatarScrollViewRef = useRef<ScrollView>(null)
@@ -45,60 +44,13 @@ const App = () => {
                 scrollSetter={setIsScrolling}
                 isScroll={isScrolling}
             />
-            <FlatList
-                ref={contactInfoScrollViewRef}
-                onMomentumScrollBegin={() => setIsScrolling(true)}
-                onMomentumScrollEnd={(
-                    event: NativeSyntheticEvent<NativeScrollEvent>
-                ) => {
-                    if (isScrolling && avatarScrollViewRef.current) {
-                        let scrollPosition = event.nativeEvent.contentOffset.y
-                        let currentContactInfoIndex = Math.round(
-                            scrollPosition /
-                                (Platform.OS === 'ios'
-                                    ? height - verticalDp(30)
-                                    : height - verticalDp(26))
-                        )
-
-                        setSelectedAvatarIndex(currentContactInfoIndex)
-
-                        avatarScrollViewRef.current.scrollTo({
-                            x: currentContactInfoIndex * (75 + horizontalDp(6)),
-                            animated: true,
-                        })
-
-                        setIsScrolling(false)
-                    }
-                }}
-                scrollEventThrottle={16}
-                data={contactInfo}
-                keyExtractor={(contact) => contact.userId}
-                renderItem={({ item: contact }) => (
-                    <View style={styles.contactInfo}>
-                        <View style={styles.contactContent}>
-                            <View style={styles.nameInfo}>
-                                <Text style={styles.heading}>
-                                    {contact.firstName} {contact.lastName}
-                                </Text>
-                                <Text style={styles.body}>
-                                    {contact.occupation}
-                                </Text>
-                            </View>
-                            <View style={styles.aboutInfo}>
-                                <Text style={styles.subHeading}>About Me</Text>
-                                <Text style={styles.body}>{contact.bio}</Text>
-                            </View>
-                        </View>
-                    </View>
-                )}
-                pagingEnabled
-                decelerationRate="fast"
-                snapToInterval={
-                    Platform.OS === 'ios'
-                        ? height - verticalDp(30)
-                        : height - verticalDp(26)
-                }
-                showsVerticalScrollIndicator={false}
+            <ContactInfo
+                avatarRef={avatarScrollViewRef}
+                contactRef={contactInfoScrollViewRef}
+                contactDetails={contactInfo}
+                indexSetter={setSelectedAvatarIndex}
+                scrollSetter={setIsScrolling}
+                isScroll={isScrolling}
             />
         </View>
     )
@@ -121,39 +73,6 @@ const styles = StyleSheet.create({
         color: themeColors.TEXT_PRIMARY,
         fontWeight: 'bold',
         textAlign: 'center',
-    },
-    contactInfo: {
-        height:
-            Platform.OS === 'ios'
-                ? height - verticalDp(30)
-                : height - verticalDp(26),
-    },
-    contactContent: {
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
-    },
-    nameInfo: {
-        marginTop: verticalDp(5),
-        alignItems: 'center',
-    },
-    heading: {
-        fontSize: fontSizes.HEADING,
-        color: themeColors.TEXT_PRIMARY,
-        fontWeight: 'bold',
-    },
-    subHeading: {
-        fontSize: fontSizes.SUB_HEADING,
-        color: themeColors.TEXT_PRIMARY,
-        fontWeight: 'bold',
-    },
-    aboutInfo: {
-        marginTop: verticalDp(5),
-        marginHorizontal: horizontalDp(5),
-    },
-    body: {
-        fontSize: fontSizes.BODY,
-        color: themeColors.TEXT_SECONDARY,
-        fontWeight: 'bold',
     },
 })
 
