@@ -36,6 +36,6 @@ yarn start
 
 ## Tech Stack
 
--   TypeScript/JavaScript
+-   TypeScript
 -   React Native
 -   Context API
