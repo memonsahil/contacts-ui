@@ -1,4 +1,4 @@
-package com.rn-challenge
+package com.contacts-ui
 
 import android.app.Application
 import com.facebook.react.PackageList
