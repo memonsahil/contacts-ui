@@ -1,4 +1,4 @@
-# rn_challenge
+# rn-challenge
 
 A React Native mobile UI that contains a contacts screen and uses context state management.
 

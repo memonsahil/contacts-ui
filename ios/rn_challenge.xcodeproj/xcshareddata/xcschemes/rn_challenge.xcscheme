@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "rn_challenge.app"
-               BlueprintName = "rn_challenge"
-               ReferencedContainer = "container:rn_challenge.xcodeproj">
+               BuildableName = "rn-challenge.app"
+               BlueprintName = "rn-challenge"
+               ReferencedContainer = "container:rn-challenge.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "rn_challengeTests.xctest"
-               BlueprintName = "rn_challengeTests"
-               ReferencedContainer = "container:rn_challenge.xcodeproj">
+               BuildableName = "rn-challengeTests.xctest"
+               BlueprintName = "rn-challengeTests"
+               ReferencedContainer = "container:rn-challenge.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "rn_challenge.app"
-            BlueprintName = "rn_challenge"
-            ReferencedContainer = "container:rn_challenge.xcodeproj">
+            BuildableName = "rn-challenge.app"
+            BlueprintName = "rn-challenge"
+            ReferencedContainer = "container:rn-challenge.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "rn_challenge.app"
-            BlueprintName = "rn_challenge"
-            ReferencedContainer = "container:rn_challenge.xcodeproj">
+            BuildableName = "rn-challenge.app"
+            BlueprintName = "rn-challenge"
+            ReferencedContainer = "container:rn-challenge.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

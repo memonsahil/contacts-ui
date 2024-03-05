@@ -1,4 +1,4 @@
-package com.rn_challenge
+package com.rn-challenge
 
 import android.app.Application
 import com.facebook.react.PackageList
